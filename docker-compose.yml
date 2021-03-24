@@ -5,12 +5,13 @@ services:
     image: nginx
     restart: always
     env_file: env
+    user: 1500:1500
     volumes:
       # Vhost configuration
-      #- ./config/caddy/Caddyfile:/etc/caddy/Caddyfiledocker-com
+      # - ./config/caddy/Caddyfile:/etc/caddy/Caddyfiledocker-com
       - ./config/nginx/in-vhost.conf:/etc/nginx/conf.d/in-vhost.conf:ro
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./docker/app/public:/var/www/app/public:rw,delegated
-      - ./docker/app/storage:/var/www/app/storage:rw,delegated
     depends_on:
       - app
     # Run webserver nginx on port 80
